@@ -24,7 +24,7 @@
         <form  method="POST">
             @csrf
             <label for="">
-                <input name="email" type="email" required autofocus value="{{ old('email') }}" placeholder="email">
+                <input name="usuario" type="text" required autofocus value="{{ old('usuario') }}" placeholder="usuario">
             </label>
             <label for="">
                 <input name="password" type="password" required placeholder="contraseña">
