@@ -12,6 +12,6 @@
     </head>
     <body class="antialiased">
         @include('partials.nav')
-        <h1>Home Cofasa</h1>
+        <h1>Dashboard Cofasa</h1>
     </body>
 </html>
