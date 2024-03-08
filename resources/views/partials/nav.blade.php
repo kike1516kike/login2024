@@ -1,4 +1,3 @@
-
 <a class="nav-link active" aria-current="page" href="/">Inicio</a>
 @guest
 <a class="nav-link" href="/login">Login</a>
@@ -9,7 +8,6 @@
     <a class="nav-link" href="#" onclick="this.closest('form').submit()">Logout</a>
 </form>
 @endguest
-
 
 @if (session('status'))
     <br>

@@ -13,31 +13,16 @@ use App\Models\User;
 class LoginController extends Controller
 {
     public function login(LoginRequest $request){
+        // if ($user && $user->contrasena === md5($request->password)){
+        //     Auth::login($user);
+        //     $user->update(['contrasena' => Hash::make($request->password)]);
+        //     $request->session()->regenerate();
+        //     return redirect()
+        //         ->intended('dashboard')
+        //         ->with('status', 'Logueo con éxito');
+        // }
 
-        $credentials = $request->validated();
-
-        $remember = $request->filled('remember');
-
-        $user = User::where('usuario', $request->usuario)->first();
-
-        if ($user && $user->contrasena === md5($request->password)){
-            Auth::login($user);
-            $user->update(['contrasena' => Hash::make($request->password)]);
-            $request->session()->regenerate();
-            return redirect()
-                ->intended('dashboard')
-                ->with('status', 'Logueo con éxito');
-        }
-
-        if (Hash::check($request->password, $user->contrasena)){
-            Auth::login($user);
-            $request->session()->regenerate();
-
-            return redirect()
-                ->intended('dashboard')
-                ->with('status', 'Logueo con exito');
-
-        }
+     
         // if (Auth::attempt($credentials, $remember)) {
 
                 //     $request->session()->regenerate();
@@ -47,8 +32,23 @@ class LoginController extends Controller
                 //         ->with('status', 'Logueo con exito');
 
                 // }
+
+        $credentials = $request->validated();
+
+        $user = User::where('usuario', $request->usuario)->first();
+
+        if ($user && Hash::check($request->password, $user->contrasena)){
+            Auth::login($user);
+            $request->session()->regenerate();
+
+            return redirect()
+                ->intended('dashboard')
+                ->with('status', 'Logueo con éxito');
+
+        }
+  
         throw ValidationException::withMessages([
-            'email' => ['Estas credenciales no coinciden con nuestros registros'],
+            'usuario' => ['Estas credenciales no coinciden con nuestros registros'],
         ]);
     }
 
